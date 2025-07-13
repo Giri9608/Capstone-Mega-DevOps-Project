@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/praduman8435/Capstone-Mega-DevOps-Project.git'
+                git branch: 'main', url: 'https://github.com/Giri9608/Capstone-Mega-DevOps-Project.git'
             }
         }
         stage('Compilation') {
@@ -66,7 +66,7 @@ pipeline {
         }
         stage('Docker Image Scan') {
             steps {
-                sh 'trivy image --format table -o image-report.html thepraduman/bankapp:$IMAGE_TAG'
+                sh 'trivy image --format table -o image-report.html giri8608/bankapp:$IMAGE_TAG'
             }
         }
         stage('Push Docker Image') {
@@ -83,7 +83,7 @@ pipeline {
                 script{
                     cleanWs()
                     sh '''
-                    git clone https://github.com/praduman8435/Capstone-Mega-CD-Pipeline.git
+                    git clone https://github.com/Giri9608/FullStack-Blogging-App.git
                     cd Capstone-Mega-CD-Pipeline
                     sed -i "s|thepraduman/bankapp:.*|thepraduman/bankapp:${IMAGE_TAG}|" kubernetes/Manifest.yaml
 
@@ -91,8 +91,8 @@ pipeline {
                     cat kubernetes/Manifest.yaml
 
                     # commit and push the changes
-                    git config user.name "Praduman"
-                    git config user.email "praduman.cnd@gmail.com"
+                    git config user.name "giri"
+                    git config user.email "giridharan9608@gmail.com"
                     git add kubernetes/Manifest.yaml
                     git commit -m "image tag updated to ${IMAGE_TAG}"
                     '''
@@ -100,7 +100,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github-cred', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
                     sh '''
                     cd Capstone-Mega-CD-Pipeline
-                    git remote set-url origin https://$GIT_USER:$GIT_PASS@github.com/praduman8435/Capstone-Mega-CD-Pipeline.git
+                    git remote set-url origin https://$GIT_USER:$GIT_PASS@github.com/Giri9608/FullStack-Blogging-App.git
                     git push origin main
                     '''
                     }
@@ -133,9 +133,9 @@ pipeline {
             emailext(
                 subject: "${jobName} - Build #${buildNumber} - ${pipelineStatus.toUpperCase()}",
                 body: body,
-                to: 'praduman.cnd@gmail.com',
-                from: 'praduman.8435@gmail.com',
-                replyTo: 'praduman.8435@gmail.com',
+                to: 'giridharan9608@gmail.com',
+                from: 'giridharan9608@gmail.com',
+                replyTo: 'giridharan9608@gmail.com',
                 mimeType: 'text/html',
                 attachmentsPattern: 'fs-report.html'
             )
