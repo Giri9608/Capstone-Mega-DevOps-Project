@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     tools {
@@ -69,11 +70,6 @@ pipeline {
                     sh 'kubectl apply -f ds.yml -n webapps'
                     sleep 30
                 }
-            }
-        }
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
             }
         }
     }
