@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/adijaiswal246/Multi-Tier-MultiDatabase.git'
+                git branch: 'main', url: 'https://github.com/Giri9608/Capstone-Mega-DevOps-Project.git'
             }
         }
         stage('Compile') {
